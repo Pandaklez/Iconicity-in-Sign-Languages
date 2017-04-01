@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% for el in base %}
+<p>Word: {{el.word}}<br>
+Semantic field: {{el.semantic_field}}</p>
+{% endfor %}
+<div class="container">
+<table class="table">
+<thead>
+  <tr>
+    <th>Language</th><th>Iconicity Pattern</th><th>Expression</th><th>URL</th>
+  </tr>
+</thead>
+<tbody>
+{% for e in lang %}
+  <tr>
+	<td>{{e.language}}</td>
+	<td>{{e.icon_pattern}}</td>
+	<td>{{e.expression_pattern}}</td>
+	<td>{{e.url}}</td>
+  </tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+{% endblock %}
