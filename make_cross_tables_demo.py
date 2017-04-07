@@ -1,3 +1,6 @@
+from pylab import *
+from pandas import date_range,Series,DataFrame,read_csv, qcut, read_excel
+from pandas.tools.plotting import radviz,scatter_matrix,bootstrap_plot,parallel_coordinates
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -47,5 +50,6 @@ df.info()
 z = df.describe(include=['object'])
 #print(z)
 #print(df.iloc[0:5, 0:4])
-data = pd.crosstab(df['iconicity pattern'], df['semantic field'])
-data.to_csv('my_first_crosstab.csv')
+data = pd.crosstab(df['expression pattern / phonetics(?)'], df['languages'], normalize=True)
+data.to_excel('expression_lang_norm.xlsx')
+
