@@ -1,0 +1,30 @@
+---
+title: "Map_for_instruments"
+author: "Ann Klezovich"
+date: '14 мая 2017 г '
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(lingtypology)
+```
+
+```{r}
+df <- read.csv("instuments_for_map.csv")
+```
+
+```{r}
+#View(df)
+```
+
+```{r}
+set.seed(3) # for having the same colors
+map.feature(languages = df$languages,
+            features = df$pattern,
+            title = "Iconicity patterns in semantic field of instruments",
+            minimap = FALSE)
+```

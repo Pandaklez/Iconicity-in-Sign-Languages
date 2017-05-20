@@ -1,0 +1,35 @@
+---
+title: "Maps"
+author: "Ann Klezovich"
+date: '18 мая 2017 г '
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+library(lingtypology)
+```
+
+```{r}
+df <- read.csv("annotated_data_new.csv")
+View(df)
+```
+
+```{r}
+df$urls <- sapply(df$urls, function(x){paste(c("<video width='250' height='200' controls> <source src='", as.character(x), "' type='video/mp4'></video>"), sep = "", collapse = "")})
+```
+
+```{r}
+wrds <- df$word
+```
+
+```{r}
+
+set.seed(4) # for having the same colors
+map.feature(languages = df$languages,
+features = df$features,
+popup = df$urls,
+title = df$word)
+```

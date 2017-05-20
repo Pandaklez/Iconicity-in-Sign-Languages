@@ -1,0 +1,41 @@
+---
+title: "non-iconic_agreement"
+author: "Ann Klezovich"
+date: '15 апреля 2017 г '
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Importing the data
+
+```{r}
+myData<-read.delim("data.csv", sep=",", header = T) 
+str(myData)
+```
+В 13 и 14 колонках urls and comments. Поэтому мы их дропнем.Оставим только чистые значения без &,+ 
+```{r}
+library(fmsb)
+singleType<-subset(myData, non.iconic.V %in% c("nonicon", "dactyl", "deixis", "", "nonicon&", "dactyl&"))
+singleType<-subset(myData, nonicon.A %in% c("nonicon", "dactyl", "deixis", "", "nonicon&", "dactyl&"))
+singleType<-singleType[,1:12]
+singleType<-droplevels(singleType)
+singleType
+```
+Это уже было посчитано, но пусть для красоты ещё раз будет.
+```{r}
+sum(singleType$ni.agr)/length(singleType$ni.agr)
+```
+Cohen's kappa
+```{r}
+IN.matrix<-table(singleType[,c(10,9)])
+IN.matrix<-rbind(IN.matrix, c(0,0,0,0,0,0))
+rownames(IN.matrix)[6]<-"dactyl&"
+rownames(IN.matrix)[1]<-"iconic"
+colnames(IN.matrix)[1]<-"iconic"
+IN.matrix<-IN.matrix[,c(1,2,4,5,6,3)]
+IN.matrix
+Kappa.test(IN.matrix)
+```

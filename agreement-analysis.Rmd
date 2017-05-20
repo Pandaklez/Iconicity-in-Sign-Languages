@@ -1,0 +1,80 @@
+---
+title: "Agreement analysis Iconicity"
+author: ""
+date: "April 14, 2017"
+output: html_document
+---
+
+
+## Importing the data
+
+```{r}
+myData<-read.delim("data.csv", sep=",", header = T) 
+str(myData)
+```
+
+## Raw agreement
+
+```{r}
+sum(myData$ib.agr)/length(myData$ib.agr)
+sum(myData$ip.agr)/length(myData$ip.agr)
+sum(myData$ni.agr)/length(myData$ni.agr)
+```
+
+Agreement for non-iconic is high, for other two categories low. 
+
+But let's look at agreement for the cases excluding compounds etc, and excluding cases where we had doubts (so cases with questions), because most of the statistics will only be based on clean data of single types. 
+
+## Cohen's kappa
+
+First let's see iconicity base for single type signs
+```{r}
+library(fmsb) #maybe install this package before running this
+singleType<-subset(myData, iconicity.base.V %in% c("assoc_action", "form_similarity", "parts/wholes", "property/holder")) #let's select only single type signs
+singleType<-subset(singleType, iconicity.base.A %in% c("assoc_action", "form_similarity", "parts/wholes", "property/holder")) #let's select only single type signs
+
+singleType<-singleType[,1:12]
+singleType<-droplevels(singleType)
+singleType
+```
+
+Let's recalculate raw agreements first:
+
+```{r}
+sum(singleType$ib.agr)/length(singleType$ib.agr) #0.82 -это маленький agreement??? 
+sum(singleType$ip.agr)/length(singleType$ip.agr)
+sum(singleType$ni.agr)/length(singleType$ni.agr)
+```
+
+It's higher now, actually pretty decent. But now to the kappa's.
+
+```{r}
+IB.matrix<-table(singleType[,c(3,4)])
+IB.matrix<-rbind(IB.matrix, c(0,0,0,0)) #add the property/holder which I didn't have at all
+IB.matrix
+rownames(IB.matrix)[4]<-"property/holder" #—мотрим какие iconicity base чаще всего путаютс€
+Kappa.test(IB.matrix)
+```
+Substantial agreement for iconicity base
+
+Let's see for iconicity patterns with single types
+```{r}
+singleTypeIP<-subset(myData, iconicity.pattern.V %in% c("object", "tracing", "handling", "contour")) #let's select only single type signs
+singleTypeIP<-subset(singleTypeIP, iconicity.pattern.A %in% c("object", "tracing", "handling", "contour")) #let's select only single type signs
+
+singleTypeIP<-droplevels(singleTypeIP)
+```
+
+```{r}
+IP.matrix<-table(singleTypeIP[,c(6,7)])
+IP.matrix<-rbind(IP.matrix, c(0,0,0,0)) #add the contour which I didn't have at all
+#IP.matrix
+rownames(IP.matrix)[4]<-"contour"
+IP.matrix<-IP.matrix[c(4,1,2,3),]
+IP.matrix #make the order the same
+Kappa.test(IP.matrix)
+```
+Almost perfect agreement for iconicity pattern.
+
+I am too lazy to calculate the Kappa for the agreement on non-iconic categories, but it will also be almost perfect. 
+
