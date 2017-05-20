@@ -43,7 +43,7 @@ def indices(b):
         i += 1
     return ind
 
-def reorder_data(ind, p_left, p_right, b_left, b_right):
+def reorder_data(ind, p_left, p_right, b_left, b_right, n_left, n_right):
     s = csv.DictReader(open("cmpnd_open.csv"))
     urls = []
     languages = []
@@ -63,8 +63,6 @@ def reorder_data(ind, p_left, p_right, b_left, b_right):
         languages.append(lang)
     #print(len(word))
     data = []
-    for j in ind:
-        data.append([word[j], sem[j], b_left[j], p_left[j], non_iconic[j], languages[j], urls[j]])
     #print(len(data))
     urls = []
     languages = []
@@ -90,6 +88,15 @@ def reorder_data(ind, p_left, p_right, b_left, b_right):
         urls.append(url)
         word.append(wor)
         languages.append(lang)
+
+    for j in ind:
+        if n_left[j] == 'ok':
+            data.append([word[j], sem[j], b_left[j], p_left[j], non_iconic[j], languages[j], urls[j]])
+            data.append([word[j], sem[j], b_right[j], p_right[j], non_iconic[j], languages[j], urls[j]])
+        else:
+            data.append([word[j], sem[j], b_left[j], p_left[j], n_left[j], languages[j], urls[j]])
+            data.append([word[j], sem[j], b_right[j], p_right[j], n_right[j], languages[j], urls[j]])
+            
     for k in range(0, len(p_left)):
         if k not in ind:
             data.append([word[k], sem[k], base[k], pattern[k], non_iconic[k], languages[k], urls[k]])
@@ -107,9 +114,10 @@ def reorder_data(ind, p_left, p_right, b_left, b_right):
 def main():
     [p_left, p_right] = funct('pattern')
     [b_left, b_right] = funct('base')
+    [n_left, n_right] = funct('non_iconic')
     #print(b_left)
     ind = indices(b_left)
-    reorder_data(ind, p_left, p_right, b_left, b_right)
+    reorder_data(ind, p_left, p_right, b_left, b_right, n_left, n_right)
 
 if __name__ == '__main__':
     main()
