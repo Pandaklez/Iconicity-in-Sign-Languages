@@ -1,0 +1,56 @@
+---
+title: "for_graph"
+author: "Ann Klezovich"
+date: '21 мая 2017 г '
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse); library(party); library(ggplot2)
+```
+
+```{r}
+df <- read.csv("for_graph.csv")
+```
+
+```{r}
+sapply(df[, -c(1, 7)], table)
+```
+
+```{r}
+df %>% 
+  mutate(handling = grepl("handling", pattern),
+         others = grepl("o", pattern)) %>% 
+  select(6, 8:9) %>% 
+  gather(key = iconicity_type, value = attested, 2:3) %>% 
+  filter(attested == TRUE) %>% 
+  count(languages, iconicity_type) %>%
+  mutate(percentage = prop.table(n)) %>%
+  ggplot(aes(languages, percentage, fill = iconicity_type))+
+  geom_bar(stat = "identity", position = "dodge") +
+  coord_flip()+
+  labs(title = "Iconicity patterns in different Sign Languages",
+       y = "proportion")+
+  theme_bw()
+```
+
+```{r}
+df %>% 
+  mutate(handling = grepl("handling", pattern),
+         others = grepl("o", pattern)) %>% 
+  select(2, 8:9) %>% 
+  gather(key = iconicity_type, value = attested, 2:3) %>% 
+  filter(attested == TRUE) %>% 
+  count(semantic_field, iconicity_type) %>%
+  mutate(percentage = prop.table(n)) %>%
+  ggplot(aes(semantic_field, percentage, fill = iconicity_type))+
+  geom_bar(stat = "identity", position = "dodge") +
+  coord_flip()+
+  labs(title = "Iconicity patterns in different semantic fields",
+       y = "proportion")+
+  theme_bw()
+```
