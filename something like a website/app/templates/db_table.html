@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+<table class="table">
+<thead>
+  <tr>
+    <th>Word</th><th>Map</th>
+  </tr>
+</thead>
+<tbody>
+{% for e in words %}
+  <tr>
+	<td>{{e}}</td>
+	<td><a href="{{words[e]}}">Map for word <i>{{e}}</i></a></td>
+  </tr>
+ {% endfor %}
+</tbody>
+</table>
+</div>
+{% endblock %} 
