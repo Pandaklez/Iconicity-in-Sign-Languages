@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block content %}
+<p><h1>This page is dedicated to statistical analysis of the data</h1></p>
+<p><h2>Graphs:</h2></p>
+
+<ul>
+<li><h3><strong>General statistics</strong></h3></li>
+</ul>
+<p><h3>Number of iconicity patterns</h3></p>
+<p><img src="static/ipat.png"></p>
+<div class="container">
+<table class="table" width="192">
+<tbody>
+<tr>
+<td width="96">
+<p>contour</p>
+</td>
+<td width="96">
+<p>138</p>
+</td>
+</tr>
+<tr>
+<td width="96">
+<p>handling</p>
+</td>
+<td width="96">
+<p>262</p>
+</td>
+</tr>
+<tr>
+<td width="96">
+<p>object</p>
+</td>
+<td width="96">
+<p>552</p>
+</td>
+</tr>
+<tr>
+<td width="96">
+<p>tracing</p>
+</td>
+<td width="96">
+<p>534</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>&nbsp;</p>
+<p><h3>Number of iconicity bases</h3></p>
+<p><img src="static/ip.png"></p>
+<div class="container">
+<table class="table" width="192">
+<tbody>
+<tr>
+<td width="200">
+<p>associated action</p>
+</td>
+<td width="99">
+<p>710</p>
+</td>
+</tr>
+<tr>
+<td width="200">
+<p>form similarity</p>
+</td>
+<td width="99">
+<p>624</p>
+</td>
+</tr>
+<tr>
+<td width="200">
+<p>parts/wholes</p>
+</td>
+<td width="99">
+<p>208</p>
+</td>
+</tr>
+<tr>
+<td width="200">
+<p>property/holder</p>
+</td>
+<td width="99">
+<p>21</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>&nbsp;</p>
+<ul>
+<li><h3><strong>Correlations between iconic words and semantic fields</strong></h3></li>
+</ul>
+<p><h3>Iconicity patterns in different&nbsp;semantic fields.</h3></p>
+<p><img src="static/ip_sf_prop.png"></p>
+<p><h3>Iconicity bases&nbsp;in different&nbsp;semantic fields.</h3></p>
+<p><img src="static/ib_sf_prop.png"></p>
+<ul>
+<li><h3><strong>Correlations&nbsp;<strong>between non iconic words and semantic fields</strong></h3></strong></li>
+</ul>
+<p><h3>Non-iconic words in different semantic fields</h3></p>
+<p><img src="static/sf_n_prop.png"></p>
+<ul>
+<li><h3><strong>Correlations between iconic words and languages</strong></h3></li>
+</ul>
+<p><h3>Iconicity patterns in different sign languages&nbsp;</h3></p>
+<p><img src="static/ip_lang_prop.png"></p>
+<p><h3>Iconicity bases in different sign languages.&nbsp;</h3></p>
+<p><img src="static/ib_lang_prop.png"></p>
+<ul>
+<li><h3><strong>Correlations between non iconic words and languages</strong></h3></li>
+</ul>
+<p><h3>Cross-linguistic variance of non-iconicity.</h3></p>
+<p><img src="static/lang_n_prop.png"></p>
+{% endblock %}
